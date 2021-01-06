@@ -35,14 +35,11 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
         if(ball->Top + 32 >= background->Top + 475)
                 horizontalShift = -horizontalShift;
 
-        /* skucha obie sciany
-         if ((( ball->Left < paddleLeft->Left  &&
-               (ball->Top + ball->Height / 2 < paddleLeft->Top ||
-                ball->Top + ball->Height / 2 > paddleLeft->Top + paddleLeft->Height)) ||
-               (ball->Left + ball->Width > paddleRight->Left + paddleRight->Width &&
-               (ball->Top + ball->Height / 2 < paddleRight->Top ||
-                ball->Top + ball->Height / 2 > paddleRight->Top + paddleRight->Height))))
+        if (ball->Left < paddleLeft->Left  &&
+                (ball->Top + ball->Height / 2 < paddleLeft->Top ||
+                 ball->Top + ball->Height / 2 > paddleLeft->Top + paddleLeft->Height))
         {
+                rightPlayerPoints++;
                 TimerBall->Enabled = false;
                 ball->Visible = false;
                 startGame = false;
@@ -52,44 +49,29 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                 Form1->bouncesButton->Caption = "Amount of bounces: " + IntToStr(countBounces);
                 Form1->bouncesButton->Visible = true;
                 Form1->nextRoundButton->Visible = true;
-                */
-                if (ball->Left < paddleLeft->Left  &&
-                    (ball->Top + ball->Height / 2 < paddleLeft->Top ||
-                     ball->Top + ball->Height / 2 > paddleLeft->Top + paddleLeft->Height))
-                {
-                        rightPlayerPoints++;
-                        TimerBall->Enabled = false;
-                        ball->Visible = false;
-                        startGame = false;
-                        Form1->newGameButton->Visible = true;
-                        Form1->scoreButton->Caption = IntToStr(leftPlayerPoints) + " : " + IntToStr(rightPlayerPoints);
-                        Form1->scoreButton->Visible = true;
-                        Form1->bouncesButton->Caption = "Amount of bounces: " + IntToStr(countBounces);
-                        Form1->bouncesButton->Visible = true;
-                        Form1->nextRoundButton->Visible = true;
-                        Form1->rightPlayerPointButton->Visible = true;
-                    }
-                else if(ball->Left + ball->Width > paddleRight->Left + paddleRight->Width &&
-                        (ball->Top + ball->Height / 2 < paddleRight->Top ||
-                         ball->Top + ball->Height / 2 > paddleRight->Top + paddleRight->Height))
-                {
-                        leftPlayerPoints++;
-                        TimerBall->Enabled = false;
-                        ball->Visible = false;
-                        startGame = false;
-                        Form1->newGameButton->Visible = true;
-                        Form1->scoreButton->Caption = IntToStr(leftPlayerPoints) + " : " + IntToStr(rightPlayerPoints);
-                        Form1->scoreButton->Visible = true;
-                        Form1->bouncesButton->Caption = "Amount of bounces: " + IntToStr(countBounces);
-                        Form1->bouncesButton->Visible = true;
-                        Form1->nextRoundButton->Visible = true;
-                        Form1->leftPlayerPointButton->Visible = true;
-                }
+                Form1->rightPlayerPointButton->Visible = true;
+        }
+        else if(ball->Left + ball->Width > paddleRight->Left + paddleRight->Width &&
+                (ball->Top + ball->Height / 2 < paddleRight->Top ||
+                 ball->Top + ball->Height / 2 > paddleRight->Top + paddleRight->Height))
+        {
+                leftPlayerPoints++;
+                TimerBall->Enabled = false;
+                ball->Visible = false;
+                startGame = false;
+                Form1->newGameButton->Visible = true;
+                Form1->scoreButton->Caption = IntToStr(leftPlayerPoints) + " : " + IntToStr(rightPlayerPoints);
+                Form1->scoreButton->Visible = true;
+                Form1->bouncesButton->Caption = "Amount of bounces: " + IntToStr(countBounces);
+                Form1->bouncesButton->Visible = true;
+                Form1->nextRoundButton->Visible = true;
+                Form1->leftPlayerPointButton->Visible = true;
+        }
 
         // odbicie pilki od paletki lewej
         else if ((ball->Left < paddleLeft->Left + paddleLeft->Width &&
-                  ball->Top + ball->Height/2 <= paddleLeft->Top + paddleLeft->Height &&
-                  ball->Top + ball->Height/2 >= paddleLeft->Top))
+                ball->Top + ball->Height/2 <= paddleLeft->Top + paddleLeft->Height &&
+                ball->Top + ball->Height/2 >= paddleLeft->Top))
         {
                 verticalShift = 1.1* verticalShift;
                 countBounces++;
@@ -135,8 +117,8 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                              ball->Top + ball->Height/2 < paddleRight->Top + paddleRight->Height/3 &&
                              ball->Top + ball->Height/2 >= paddleRight->Top))
                         {
-                                verticalShift = -  0.9 * verticalShift;
-                                horizontalShift = 0.9 * horizontalShift;
+                                verticalShift = -  1.1 * verticalShift;
+                                horizontalShift = 1.1 * horizontalShift;
                         }
 
                         //strefa srodkowa
@@ -208,26 +190,31 @@ void __fastcall TForm1::timerDownPaddleLeftTimer(TObject *Sender)
 
 void __fastcall TForm1::newGameButtonClick(TObject *Sender)
 {
+        if(Application->MessageBoxA(
+                "Are you sure to start new Game ?",
+                "New Game",
+                MB_OKCANCEL) == IDOK)
+        {
+                if(startGame == false){
 
-        if(startGame == false){
-
-                ball->Left = 450;
-                ball->Top = 250;
-                startGame = true;
-                ball->Visible = true;
-                int horizontalShift = 8;
-                int verticalShift = 8;
-                TimerBall->Enabled = true;
-                Form1->newGameButton->Visible = false;
-                Form1->startStatement->Visible = false;
-                Form1->scoreButton->Visible = false;
-                Form1->bouncesButton->Visible = false;
-                Form1->nextRoundButton->Visible = false;
-                Form1->rightPlayerPointButton->Visible = false;
-                Form1->leftPlayerPointButton->Visible = false;
-                countBounces = 0;
-                leftPlayerPoints = 0;
-                rightPlayerPoints = 0;
+                        ball->Left = 450;
+                        ball->Top = 250;
+                        startGame = true;
+                        ball->Visible = true;
+                        int horizontalShift = 8;
+                        int verticalShift = 8;
+                        TimerBall->Enabled = true;
+                        Form1->newGameButton->Visible = false;
+                        Form1->startStatement->Visible = false;
+                        Form1->scoreButton->Visible = false;
+                        Form1->bouncesButton->Visible = false;
+                        Form1->nextRoundButton->Visible = false;
+                        Form1->rightPlayerPointButton->Visible = false;
+                        Form1->leftPlayerPointButton->Visible = false;
+                        countBounces = 0;
+                        leftPlayerPoints = 0;
+                        rightPlayerPoints = 0;
+                }
         }
 }
 //---------------------------------------------------------------------------

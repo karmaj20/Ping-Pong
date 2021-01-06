@@ -14,8 +14,6 @@ class TForm1 : public TForm
 {
 __published:	// IDE-managed Components
         TShape *background;
-        TImage *paddleLeft;
-        TImage *paddleRight;
         TImage *ball;
         TTimer *TimerBall;
         TTimer *timerUpPaddleLeft;
@@ -29,6 +27,8 @@ __published:	// IDE-managed Components
         TButton *rightPlayerPointButton;
         TButton *leftPlayerPointButton;
         TButton *startStatement;
+        TImage *paddleLeft;
+        TImage *paddleRight;
         void __fastcall TimerBallTimer(TObject *Sender);
         void __fastcall timerUpPaddleRightTimer(TObject *Sender);
         void __fastcall timerDownPaddleRightTimer(TObject *Sender);

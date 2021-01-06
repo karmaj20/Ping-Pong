@@ -13,6 +13,7 @@ int countBounces = 0;
 int leftPlayerPoints = 0;
 int rightPlayerPoints = 0;
 bool startGame = false;
+
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
@@ -29,11 +30,11 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
 
         // odbij od gornej sciany
         if(ball->Top - 5 <= background->Top)
-                horizontalShift = -horizontalShift;
+                horizontalShift = -1.1 * horizontalShift;
 
         // odbij od dolnej sciany
         if(ball->Top + 32 >= background->Top + 475)
-                horizontalShift = -horizontalShift;
+                horizontalShift = -1.1 * horizontalShift;
 
         if (ball->Left < paddleLeft->Left  &&
                 (ball->Top + ball->Height / 2 < paddleLeft->Top ||
@@ -50,6 +51,8 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                 Form1->bouncesButton->Visible = true;
                 Form1->nextRoundButton->Visible = true;
                 Form1->rightPlayerPointButton->Visible = true;
+                verticalShift = -8;
+                horizontalShift = -8;
         }
         else if(ball->Left + ball->Width > paddleRight->Left + paddleRight->Width &&
                 (ball->Top + ball->Height / 2 < paddleRight->Top ||
@@ -66,6 +69,8 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                 Form1->bouncesButton->Visible = true;
                 Form1->nextRoundButton->Visible = true;
                 Form1->leftPlayerPointButton->Visible = true;
+                verticalShift = -8;
+                horizontalShift = -8;
         }
 
         // odbicie pilki od paletki lewej
@@ -73,7 +78,7 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                 ball->Top + ball->Height/2 <= paddleLeft->Top + paddleLeft->Height &&
                 ball->Top + ball->Height/2 >= paddleLeft->Top))
         {
-                verticalShift = 1.1* verticalShift;
+                verticalShift = 1.2 * verticalShift;
                 countBounces++;
                 if(verticalShift < 0)
                 {
@@ -91,15 +96,15 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                                   ball->Top + ball->Height/2 <= paddleLeft->Top + 2 * paddleLeft->Height/3 &&
                                   ball->Top + ball->Height/2 >= paddleLeft->Top + paddleLeft->Height/3))
                         {
-                                verticalShift = - verticalShift;
+                                verticalShift = -1.2 * verticalShift;
                         }
                         //strefa dolne
                         else if ((ball->Left <= paddleLeft->Left + paddleLeft->Width &&
                                   ball->Top + ball->Height/2 <= paddleLeft->Top +  paddleLeft->Height &&
                                   ball->Top + ball->Height/2 > paddleLeft->Top + 2/3 * paddleLeft->Height))
                         {
-                                verticalShift = -1.2 * verticalShift;
-                                horizontalShift = 1.2 * horizontalShift;
+                                verticalShift = -0.9 * verticalShift;
+                                horizontalShift = 0.9 * horizontalShift;
                         }
                 }
         }
@@ -108,7 +113,7 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                   ball->Top + ball->Height/2 <= paddleRight->Top + paddleRight->Height &&
                   ball->Top + ball->Height/2 >= paddleRight->Top))
             {
-                verticalShift =  1.1 * verticalShift;
+                verticalShift =  1.2 * verticalShift;
                 countBounces++;
                 if(verticalShift > 0)
                 {
@@ -117,8 +122,8 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                              ball->Top + ball->Height/2 < paddleRight->Top + paddleRight->Height/3 &&
                              ball->Top + ball->Height/2 >= paddleRight->Top))
                         {
-                                verticalShift = -  1.1 * verticalShift;
-                                horizontalShift = 1.1 * horizontalShift;
+                                verticalShift = -  0.9 * verticalShift;
+                                horizontalShift = 0.9 * horizontalShift;
                         }
 
                         //strefa srodkowa
@@ -126,15 +131,15 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
                                   ball->Top + ball->Height/2 <= paddleRight->Top + 2 * paddleRight->Height/3 &&
                                   ball->Top + ball->Height/2 >= paddleRight->Top + paddleRight->Height/3))
                         {
-                                verticalShift = - verticalShift;
+                                verticalShift = - 1.2*verticalShift;
                         }
                         //strefa dolna
                         else if ((ball->Left <= paddleRight->Left + paddleRight->Width &&
                                   ball->Top + ball->Height/2 <= paddleRight->Top +  paddleRight->Height &&
                                   ball->Top + ball->Height/2 > paddleRight->Top + 2/3 * paddleRight->Height))
                         {
-                                verticalShift = -1.2 * verticalShift;
-                                horizontalShift = 1.2 * horizontalShift;
+                                verticalShift = -0.9 * verticalShift;
+                                horizontalShift = 0.9 * horizontalShift;
                         }
                 }
            }
@@ -258,3 +263,18 @@ void __fastcall TForm1::FormActivate(TObject *Sender)
                         "Pingpong", MB_OK);
 }
 //---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
