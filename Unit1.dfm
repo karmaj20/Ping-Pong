@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 192
-  Top = 125
-  Width = 1044
-  Height = 540
+  Left = 299
+  Top = 227
+  Width = 915
+  Height = 521
   Caption = 'Form1'
   Color = clBtnFace
   UseDockManager = True
@@ -13,6 +13,7 @@ object Form1: TForm1
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnActivate = FormActivate
   OnKeyDown = FormKeyDown
   OnKeyUp = FormKeyUp
   PixelsPerInch = 96
@@ -20,17 +21,18 @@ object Form1: TForm1
   object background: TShape
     Left = 0
     Top = 0
-    Width = 1028
-    Height = 501
+    Width = 899
+    Height = 482
     Align = alClient
     Brush.Color = clSilver
   end
   object paddleLeft: TImage
-    Left = 104
+    Left = 32
     Top = 192
     Width = 20
     Height = 100
     AutoSize = True
+    Center = True
     Picture.Data = {
       07544269746D6170A6170000424DA61700000000000036000000280000001400
       000064000000010018000000000070170000230B0000230B0000000000000000
@@ -225,11 +227,12 @@ object Form1: TForm1
     Transparent = True
   end
   object paddleRight: TImage
-    Left = 904
+    Left = 832
     Top = 192
     Width = 20
     Height = 100
     AutoSize = True
+    Center = True
     Picture.Data = {
       07544269746D6170A6170000424DA61700000000000036000000280000001400
       000064000000010018000000000070170000230B0000230B0000000000000000
@@ -424,8 +427,8 @@ object Form1: TForm1
     Transparent = True
   end
   object ball: TImage
-    Left = 608
-    Top = 208
+    Left = 640
+    Top = 184
     Width = 32
     Height = 32
     AutoSize = True
@@ -530,9 +533,117 @@ object Form1: TForm1
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFF}
     Transparent = True
+    Visible = False
+  end
+  object newGameButton: TButton
+    Left = 336
+    Top = 368
+    Width = 241
+    Height = 57
+    Cursor = crHandPoint
+    Caption = 'New Game'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -31
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    OnClick = newGameButtonClick
+  end
+  object nextRoundButton: TButton
+    Left = 336
+    Top = 288
+    Width = 241
+    Height = 57
+    Cursor = crHandPoint
+    Caption = 'Next round'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -23
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    Visible = False
+    OnClick = nextRoundButtonClick
+  end
+  object bouncesButton: TButton
+    Left = 336
+    Top = 208
+    Width = 241
+    Height = 57
+    Caption = 'Amount of bounces : '
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    Visible = False
+  end
+  object scoreButton: TButton
+    Left = 336
+    Top = 128
+    Width = 241
+    Height = 57
+    Caption = 'scoreButton'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    Visible = False
+  end
+  object rightPlayerPointButton: TButton
+    Left = 264
+    Top = 32
+    Width = 393
+    Height = 65
+    Caption = 'Punkt dla gracza prawego >'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+    Visible = False
+  end
+  object leftPlayerPointButton: TButton
+    Left = 264
+    Top = 32
+    Width = 393
+    Height = 65
+    Caption = '< Punkt dla gracza lewego'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 5
+    Visible = False
+  end
+  object startStatement: TButton
+    Left = 184
+    Top = 16
+    Width = 553
+    Height = 89
+    Caption = 'Let`s play ping-pong'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -31
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 6
   end
   object TimerBall: TTimer
-    Interval = 20
+    Interval = 16
     OnTimer = TimerBallTimer
     Left = 32
     Top = 24
